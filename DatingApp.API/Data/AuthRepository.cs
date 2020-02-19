@@ -23,10 +23,10 @@ namespace DatingApp.API.Data
 
             if(loginUser == null) 
                 return null;
-            if(!VerifyPasswordHash(password, loginUser.PasswordSalt, loginUser.PasswordSalt))
+            if(!VerifyPasswordHash(password, loginUser.PasswordHash, loginUser.PasswordSalt))
             return null;
-
             return loginUser;
+            
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
