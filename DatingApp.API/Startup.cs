@@ -31,30 +31,36 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<DataContext>( connect => connect.UseSqlite
-            (Configuration.GetConnectionString("DefaultConnection")));
-            //initialisationdes controllers
+             //faille xss
+            services.AddCors();
+             //initialisationdes controllers
             services.AddControllers();
 
             
-            //faille xss
-            services.AddCors();
-            
+                  services.AddAuthentication( opt => {
+                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
 
-            
-
-            //L’inscription ajuste la durée de vie du service à la durée de vie d’une requête unique. 
-            services.AddScoped<IauthRepository, AuthRepository>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters 
                 {
-                     ValidateIssuerSigningKey = true,
+                    ValidateIssuerSigningKey = true,
                      IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    
                 };
             });
+            //L’inscription ajuste la durée de vie du service à la durée de vie d’une requête unique. 
+            services.AddScoped<IauthRepository, AuthRepository>();
+
+           
+            services.AddDbContext<DataContext>( connect => connect.UseSqlite
+            (Configuration.GetConnectionString("DefaultConnection")));
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,18 +69,18 @@ namespace DatingApp.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            
+            }else
+    {
+        // ...
+        app.UseHsts();
+    }
+        
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-
             app.UseHttpsRedirection();
-
+ 
             app.UseRouting();
-
             app.UseAuthentication(); 
             app.UseAuthorization();
-     
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

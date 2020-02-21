@@ -88,6 +88,7 @@ namespace DatingApp.API.Controllers
             // on instencie la decription du token en faisant passé en parametre le claims, la date du jour, et la clef crypté et securisé   
             var tokenDescription = new SecurityTokenDescriptor
             {
+                
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = creds
@@ -99,8 +100,7 @@ namespace DatingApp.API.Controllers
             var token = tokenHandler.CreateToken(tokenDescription);
                 //on retour la reponse avec le token creer du server => au client
             return Ok(new  {
-                token = tokenHandler.WriteToken(token)
-            });
+                token = tokenHandler.WriteToken(token),fullname = userFromRepo.Username});
     
          }
 
