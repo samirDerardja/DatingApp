@@ -55,19 +55,21 @@ namespace DatingApp.API.Controllers
 
         }
 
-   
+
         [HttpPost("login")]
 
         public async Task<IActionResult> Login(UserForLoginDtos userForLoginDtos)
         {
+
+ 
             //on recupere les parametres pour le login 
             var userFromRepo = await _repo.Login(userForLoginDtos.Username.ToLower(), userForLoginDtos.Password);
-         
+
             //si vide, on interdit
             if (userFromRepo == null)
-       
+
                 return Unauthorized();
-          
+
 
             var claims = new[]
             {
@@ -77,7 +79,7 @@ namespace DatingApp.API.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
                 new Claim(ClaimTypes.Name, userFromRepo.Username)
             };
- 
+
 
             //creation de la clef secrete , ajouté dans appseting.json
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_IConfig.GetSection("AppSettings:Token").Value));
@@ -88,21 +90,25 @@ namespace DatingApp.API.Controllers
             // on instencie la decription du token en faisant passé en parametre le claims, la date du jour, et la clef crypté et securisé   
             var tokenDescription = new SecurityTokenDescriptor
             {
-                
+
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
+                SigningCredentials = creds,
+                Issuer = "localhost",
+                Audience = "localhost"
             };
+            //on crée le nouveau token avec comme parametres le tokendescription
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescription); 
+            //on retour la reponse avec le token creer du server => au client
+            return Ok(new
+            {
+                token = tokenHandler.WriteToken(token),
+                fullname = userFromRepo.Username
+            });
 
 
-                //on crée le nouveau token avec comme parametres le tokendescription
-            var tokenHandler = new  JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescription);
-                //on retour la reponse avec le token creer du server => au client
-            return Ok(new  {
-                token = tokenHandler.WriteToken(token),fullname = userFromRepo.Username});
-    
-         }
+        }
 
     }
 }
