@@ -19,6 +19,7 @@ using System.Text;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DatingApp.API.Helpers;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -37,8 +38,16 @@ namespace DatingApp.API
 
              //faille xss
             services.AddCors();
+           // AutoMapper est un outil permettant de définir une stratégie de mapping objet-objet.
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
              //initialisationdes controllers
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt => 
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+            services.AddTransient<Seed>();
+     
 
             
                   services.AddAuthentication( opt => {
@@ -60,10 +69,11 @@ namespace DatingApp.API
             });
             //L’inscription ajuste la durée de vie du service à la durée de vie d’une requête unique. 
             services.AddScoped<IauthRepository, AuthRepository>();
-
+            services.AddScoped< IDatingRepository, DatingRepository>();
            
             services.AddDbContext<DataContext>( connect => connect.UseSqlite
             (Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers().AddNewtonsoftJson();
            
         }
 
