@@ -104,7 +104,7 @@ namespace DatingApp.API.Controllers
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-                fullname = userFromRepo.Username
+                // fullname = userFromRepo.Username
             });
 
 

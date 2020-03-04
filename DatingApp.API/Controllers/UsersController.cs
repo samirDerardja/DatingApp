@@ -1,3 +1,5 @@
+using System;
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
 {
+ 
 
-    [Authorize]
+    [ApiController]
     [Route("api/[controller]")]
     public class UsersController: ControllerBase
     {
@@ -21,6 +24,7 @@ namespace DatingApp.API.Controllers
            _mapper = mapper;
         }
 
+      
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
@@ -29,12 +33,30 @@ namespace DatingApp.API.Controllers
             return Ok(usersToReturn);
         }
 
+   
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
             var userReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userReturn);
+        }
+ 
+ 
+        [HttpPut("{id}")] 
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
+        {
+ 
+            var userFromRepo = await _repo.GetUser(id);
+            _mapper.Map(userForUpdateDto , userFromRepo);
+            if ( await _repo.SaveAll())
+            return NoContent();
+
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            return Unauthorized();
+
+            
+            throw new Exception("error");
         }
     }
 }

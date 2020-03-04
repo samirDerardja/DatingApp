@@ -5,3 +5,8 @@ body {
     font-family: "Reem Kufi",sans-serif;
     font-weight: 300;
 }
+
+.md-form textarea.md-textarea {
+    padding: 2.5rem 0;
+    overflow-y: hidden;
+}

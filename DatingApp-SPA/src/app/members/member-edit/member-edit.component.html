@@ -1,0 +1,97 @@
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Edit you profile</h1>
+    </div>
+ <div class="col-sm-8">
+  <div *ngIf="editForm.dirty" class="alert alert-warning" role="alert">
+    You have made some changes. Any unsaved changes will be lost!
+  </div>
+ </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+  
+        <!-- Card image -->
+        <img class="card-img-top" src="{{user.photoUrl}}" alt="{{user.username}}">
+      
+        <!-- Card content -->
+        <div class="card-body">
+  
+          <h3 class="card-title text-center">{{user.username}} - {{user.age}} Years</h3> 
+          <!-- Text -->
+          <strong style="font-size: large;">Location</strong>
+          <p class="card-text" style="font-size: 20px;">City : {{user.city}} - Country : {{user.country}} </p>
+  
+          <strong style="font-size: large;">Last active</strong>
+          <p class="card-text" style="font-size: 18px;">City : {{user.lastActive}}</p>
+          <strong style="font-size: large;">Member since</strong>
+          <p class="card-text" style="font-size: 18px;">City : {{user.created}}</p>
+        </div>
+        <button [disabled]="!editForm.dirty" class="btn btn-default btn-sm" form="editForm">Save changes</button>
+      </div>
+      <!-- Card -->
+    </div>
+    <div class="col-md-8">
+      <!-- Classic tabs -->
+  <div class="classic-tabs">
+  
+    <ul class="nav tabs-cyan" id="myClassicTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link  waves-light active show" id="profile-tab-classic" data-toggle="tab" href="#profile-classic"
+          role="tab" aria-controls="profile-classic" aria-selected="true">Edit your profil</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-link waves-light" id="awesome-tab-classic" data-toggle="tab" href="#awesome-classic" role="tab"
+          aria-controls="awesome-classic" aria-selected="false">Photo</a>
+      </li>
+    </ul>
+    <div class="tab-content border-right border-bottom border-left rounded-bottom" id="myClassicTabContent">
+      <div class="tab-pane fade active show" id="profile-classic" role="tabpanel" aria-labelledby="profile-tab-classic">
+        <form #editForm="ngForm" (ngSubmit)="updateUser()" id="editForm">
+       
+        <div class="md-form amber-textarea active-amber-textarea-2">
+          <textarea  name="introduction"  class="md-textarea form-control" rows="4" [(ngModel)]="user.introduction"></textarea>
+          <label for="form16">DESCRIPTION</label>
+        </div>
+        <div class="md-form amber-textarea active-amber-textarea-2">
+          <textarea  name="lookingFor" class="md-textarea form-control" rows="4" [(ngModel)]="user.lookingFor"></textarea>
+          <label for="form16">LOOKING FOR</label>
+        </div>
+        <div class="md-form amber-textarea active-amber-textarea-2">
+          <textarea   name="interests" class="md-textarea form-control" rows="4" [(ngModel)]="user.interests"></textarea>
+          <label for="form16">INTERESTS</label>
+        </div>
+        <div class="form-inline">
+          <div class="input-group mb-3 mr-4 mx-auto">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">My country</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+             name="country" aria-describedby="inputGroup-sizing-default"  [(ngModel)]="user.country" >
+          </div>
+          <div class="input-group mb-3 mx-auto">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-default">My city</span>
+            </div>
+            <input type="text" class="form-control" aria-label="Sizing example input" 
+           name="city" aria-describedby="inputGroup-sizing-default"  [(ngModel)]="user.city">
+          </div>
+        </div>
+        </form>
+      </div>
+  
+      <div class="tab-pane fade" id="awesome-classic" role="tabpanel" aria-labelledby="awesome-tab-classic">
+        <p>photo here</p>
+      </div>
+    </div>
+  
+  </div>
+  <!-- Classic tabs -->
+    </div>
+  </div>
+  </div>
+
