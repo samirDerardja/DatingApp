@@ -23,6 +23,13 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { NgxGalleryModule } from 'ngx-gallery';
+import { GalleryModule } from '@ngx-gallery/core';
+import { NguCarouselModule } from '@ngu/carousel';
+
+
+
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -39,12 +46,16 @@ export function tokenGetter() {
       MessagesComponent,
       MemberCardComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
+      NgxGalleryModule,
+      NguCarouselModule,
+      GalleryModule,
       RouterModule.forRoot(routes),
       JwtModule.forRoot({
             config: {
@@ -64,7 +75,7 @@ export function tokenGetter() {
       AuthService,
       AlertifyService,
       AuthGuard,
-      PreventUnsavedChanges
+      PreventUnsavedChanges,
    ],
    bootstrap: [
       AppComponent

@@ -38,6 +38,7 @@ namespace DatingApp.API
 
              //faille xss
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
            // AutoMapper est un outil permettant de définir une stratégie de mapping objet-objet.
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
              //initialisationdes controllers
