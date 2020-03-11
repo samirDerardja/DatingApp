@@ -1,4 +1,5 @@
 
+using System.Net;
 using System.Security.Claims;
 using System;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace DatingApp.API.Controllers
 {
@@ -57,7 +58,6 @@ namespace DatingApp.API.Controllers
 
 
         [HttpPost("login")]
-
         public async Task<IActionResult> Login(UserForLoginDtos userForLoginDtos)
         {
 

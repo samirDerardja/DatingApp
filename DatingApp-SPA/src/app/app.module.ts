@@ -24,11 +24,9 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-import { NgxGalleryModule } from 'ngx-gallery';
-import { GalleryModule } from '@ngx-gallery/core';
-import { NguCarouselModule } from '@ngu/carousel';
-
-
+import { OwlModule } from 'ngx-owl-carousel';
+import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 export function tokenGetter() {
@@ -47,15 +45,16 @@ export function tokenGetter() {
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent 
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
-      NgxGalleryModule,
-      NguCarouselModule,
-      GalleryModule,
+      CarouselModule,
+      WavesModule,
+      FileUploadModule,
+      OwlModule,
       RouterModule.forRoot(routes),
       JwtModule.forRoot({
             config: {

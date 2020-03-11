@@ -42,7 +42,7 @@ namespace DatingApp.API.Controllers
             return Ok(userReturn);
         }
  
- 
+  
         [HttpPut("{id}")] 
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {

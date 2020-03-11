@@ -1,3 +1,5 @@
+
+
 <div class="container mt-4">
 <div class="row">
   <div class="col-md-4">
@@ -59,41 +61,13 @@
     </div>
 <!--Carousel Wrapper-->
 <div class="tab-pane fade"   id="contact-classic" role="tabpanel" aria-labelledby="contact-tab-classic">
-  <div class="carousel-inner" role="listbox">
-    <div class="carousel-item active">
-      <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
 <!--Carousel Wrapper-->
-<div class="col-md-3" >
-  <ngu-carousel #myCarousel [inputs]="carouselTile" [dataSource]="carouselTileItems">
-    <ngu-tile *nguCarouselDef="let item; let i = index">
-  
-      <ngu-carousel #myCarousel [inputs]="carouselTile" (carouselLoad)="carouselTileLoad(i)" [dataSource]="carouselTiles[i]">
-        <ngu-tile *nguCarouselDef="let item; let j = index">
-          <div class="tile" [style.background]="'url(' + item + ')'" style="min-height: 200px">
-            <h1>{{j}}</h1>
-          </div>
-        </ngu-tile>
-        <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>
-        <button NguCarouselNext class="rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">&gt;</button>
-        <ul class="myPoint" NguCarouselPoint>
-          <li *ngFor="let j of myCarousel.pointNumbers; let j = index" [class.active]="j==myCarousel.activePoint" (click)="myCarousel.moveTo(j)"
-            [style.background]="'url(' + carouselTileItems[j] + ')'"></li>
-        </ul>
-      </ngu-carousel>
-  
-    </ngu-tile>
-    <button NguCarouselPrev class="leftRs" [style.opacity]="myCarousel.isFirst ? 0.5:1">&lt;</button>
-    <button NguCarouselNext class="rightRs" [style.opacity]="myCarousel.isLast ? 0.5:1">&gt;</button>
-    <ul class="myPoint" NguCarouselPoint>
-      <li *ngFor="let i of myCarousel.pointNumbers; let i = index" [class.active]="i==myCarousel.activePoint" (click)="myCarousel.moveTo(i)"
-        [style.background]="'url(' + carouselTileItems[i] + ')'"></li>
-    </ul>
-  </ngu-carousel>
-</div>
+<mdb-carousel class="carousel slide carousel-fade" [type]="'carousel-thumbnails'" [animation]="'fade'">
+  <mdb-carousel-item *ngFor="let c of images">
+      <img class="d-block w-100" [src]="c" [alt]="c.caption">
+  </mdb-carousel-item>
+</mdb-carousel>
 <!--/.Carousel Wrapper-->
-    </div>
-  
-</div>
 </div>
 <!--/.Carousel Wrapper-->
 
