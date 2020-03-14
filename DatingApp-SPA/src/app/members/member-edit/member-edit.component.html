@@ -15,7 +15,7 @@
       <div class="card">
   
         <!-- Card image -->
-        <img class="card-img-top" src="{{user.photoUrl}}" alt="{{user.username}}">
+        <img class="card-img-top" src="{{photoUrl}}" alt="{{user.username}}">
       
         <!-- Card content -->
         <div class="card-body">
@@ -85,12 +85,13 @@
       </div>
   
       <div class="tab-pane fade" id="awesome-classic" role="tabpanel" aria-labelledby="awesome-tab-classic">
-<app-photo-editor  [photos]="user.photos"></app-photo-editor>
+<app-photo-editor  [photos]="user.photos" (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
       </div>
     </div>
   
   </div> 
   <!-- Classic tabs -->
+  
     </div>
   </div>
   </div>

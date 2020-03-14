@@ -13,8 +13,17 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./member-edit.component.scss']
 })
 export class MemberEditComponent implements OnInit {
+
+  constructor(
+    private route: ActivatedRoute,
+    private alertify: AlertifyService,
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
   @ViewChild('editForm', { static: true }) editForm: NgForm;
   user: User;
+
+  photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
 if(this.editForm.dirty) {
@@ -23,17 +32,12 @@ if(this.editForm.dirty) {
 }
   }
 
-  constructor(
-    private route: ActivatedRoute,
-    private alertify: AlertifyService,
-    private userService: UserService,
-    private authService: AuthService
-  ) {}
-
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data['user'];
     });
+
+    this.authService.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
   }
  
   updateUser() {
@@ -44,5 +48,9 @@ if(this.editForm.dirty) {
 this.alertify.error(error);
 
     });
+  }
+
+  updateMainPhoto(photoUrl: string){
+    this.user.photoUrl = photoUrl;
   }
 }

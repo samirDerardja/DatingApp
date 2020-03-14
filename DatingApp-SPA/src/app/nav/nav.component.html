@@ -21,14 +21,18 @@
     <!-- Basic dropdown -->
 
 <div class="row ml-auto dropdown" *ngIf="loggedIn()">
- <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-  aria-haspopup="true" aria-expanded="false">Welcome  {{authService.decodeToken?.unique_name | titlecase}}</button>
+  <span class="mr-2">
+    <img src="{{photoUrl}}"  class="mr-3" alt="" style="max-height: 50px;display:inline;border:2px solid white">
 
-<div class="dropdown-menu">
-<a class="dropdown-item" [routerLink] ="[ '/member/edit' ]"><i class="fa fa-user-circle"></i> Profile</a>
-<div class="dropdown-divider"></div>
-<a class="dropdown-item"  (click)="loggedOut()"><i class="fa fa-sign-out-alt"></i> Logout</a>
-</div>
+ <a class="dropdown-toggle text-light mr-5" type="button" data-toggle="dropdown" 
+  aria-haspopup="true" aria-expanded="false">Welcome  {{authService.decodeToken?.unique_name | titlecase}}</a>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" [routerLink] ="[ '/member/edit' ]"><i class="fa fa-user-circle"></i> Profile</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item"  (click)="loggedOut()"><i class="fa fa-sign-out-alt"></i> Logout</a>
+    </div>
+</span>
+
 </div>
 <!-- Basic dropdown -->
     <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0 ml-auto" (ngSubmit)="login()">

@@ -38,4 +38,12 @@ export class UserService {
    });
     return this.http.put(this.baseUrl + 'users/' + id, user, {headers: reqHeader});
 }
+
+setMainPhoto(userid: number, id: number){
+  return this.http.post(this.baseUrl + 'users/' + userid + '/photos/' + id  + '/setMain', {});
+}
+
+deletePhoto(userid: number, id: number) {
+  return this.http.delete(this.baseUrl + 'users/' + userid + '/photos/' + id);
+}
 }
