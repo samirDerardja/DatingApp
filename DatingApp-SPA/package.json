@@ -38,6 +38,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
     "ng2-file-upload": "^1.4.0",
+    "ngx-bootstrap": "^5.5.0",
     "ngx-owl-carousel": "^2.0.7",
     "owl.carousel": "^2.3.4",
     "rxjs": "~6.5.2",

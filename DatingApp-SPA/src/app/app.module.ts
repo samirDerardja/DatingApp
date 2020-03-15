@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './_services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -27,6 +27,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { OwlModule } from 'ngx-owl-carousel';
 import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 export function tokenGetter() {
@@ -52,9 +54,12 @@ export function tokenGetter() {
       HttpClientModule,
       FormsModule,
       CarouselModule,
+      BrowserAnimationsModule,
+      BsDatepickerModule.forRoot(),
       WavesModule,
       FileUploadModule,
       OwlModule,
+      ReactiveFormsModule,
       RouterModule.forRoot(routes),
       JwtModule.forRoot({
             config: {
