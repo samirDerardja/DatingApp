@@ -17,9 +17,9 @@
         <p class="card-text" style="font-size: 20px;">City : {{user.city}} - Country : {{user.country}} </p>
 
         <strong style="font-size: large;">Last active</strong>
-        <p class="card-text" style="font-size: 18px;">City : {{user.lastActive}}</p>
+        <p class="car-text"><strong>{{user.lastActive |   date:'fullDate'}}</strong></p>
         <strong style="font-size: large;">Member since</strong>
-        <p class="card-text" style="font-size: 18px;">City : {{user.created}}</p>
+        <div >{{user.created}}</div>
       </div>
       <button type="button" class="btn btn-danger btn-sm">Like</button>
       <button type="button" class="btn btn-default btn-sm">Message</button>

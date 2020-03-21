@@ -25,7 +25,7 @@ export class AuthService {
   changeMemberPhoto(photoUrl: string) {
     this.photoUrl.next(photoUrl);
   }
-
+ 
   login(model: any) {
     return this.http.post(this.baseUrl + 'login', model)
       .pipe(
@@ -52,5 +52,7 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
+
+  
 
 }

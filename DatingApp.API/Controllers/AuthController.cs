@@ -17,6 +17,7 @@ using AutoMapper;
 namespace DatingApp.API.Controllers
 {
 
+  [AllowAnonymous]
     [Route("api/[controller]")]
     // si l APIcontroller est absent, l instance userRegisterForDtos ne sera pas appelée
     [ApiController]
@@ -94,9 +95,8 @@ namespace DatingApp.API.Controllers
 
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds,
-                Issuer = "localhost",
-                Audience = "localhost"
+                SigningCredentials = creds
+               
             };
             //on crée le nouveau token avec comme parametres le tokendescription
             var tokenHandler = new JwtSecurityTokenHandler();

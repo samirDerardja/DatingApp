@@ -15,11 +15,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    const reqHeader = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('token'))
-   });
-    return this.http.get<User[]>(this.baseUrl + 'users',  {headers: reqHeader});
+   
+    return this.http.get<User[]>(this.baseUrl + 'users');
   }
 
   getUser(id: number): Observable<User> {

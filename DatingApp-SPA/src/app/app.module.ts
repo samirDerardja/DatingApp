@@ -29,6 +29,7 @@ import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimeagoModule, TimeagoIntl, TimeagoClock } from 'ngx-timeago';
 
 
 export function tokenGetter() {
@@ -51,6 +52,10 @@ export function tokenGetter() {
    ],
    imports: [
       BrowserModule,
+      TimeagoModule.forRoot({
+         intl: {provide: TimeagoIntl, useClass: MemberDetailComponent},
+         clock: {provide: TimeagoClock, useClass: MemberDetailComponent},
+       }),
       HttpClientModule,
       FormsModule,
       CarouselModule,
@@ -79,6 +84,7 @@ export function tokenGetter() {
       AuthService,
       AlertifyService,
       AuthGuard,
+      TimeagoIntl,
       PreventUnsavedChanges,
    ],
    bootstrap: [
