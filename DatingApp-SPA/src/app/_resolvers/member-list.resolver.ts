@@ -12,20 +12,23 @@ import { catchError } from 'rxjs/operators';
 export class MemberListResolver implements Resolve<User[]> {
 
 
-    /**
-     *
-     */
+    listUsers : User;
+    pageNumber = 1;
+    pageSize = this.listUsers;
+
     constructor(private userService: UserService, private router: Router, private alertify: AlertifyService) {}
 
     resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
 
-        return this.userService.getUsers().pipe(
+        return this.userService.getUsers(this.pageNumber, this.pageSize).pipe(
 
             catchError(error => {
-                this.alertify.error('error retrieve data');
+                this.alertify.error('Problème de récupération des données');
                 this.router.navigate(['/home']);
+                console.log(this.pageSize);
                 return of(null);
             })
+            
         );
     }
 }

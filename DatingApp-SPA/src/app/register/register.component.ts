@@ -40,6 +40,7 @@ this.bsConfig = {
   containerClass: 'theme-red'
 }
    this.createRegisterForm();
+
   }
   passwordMatchValidator(g: FormGroup) {
     /**

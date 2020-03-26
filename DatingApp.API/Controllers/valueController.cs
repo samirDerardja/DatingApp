@@ -11,8 +11,8 @@ namespace DatingApp.API.Controllers
 {
 
     
-    [ApiController]
-    [Route("api/[controller]")]
+    // [ApiController]
+    // [Route("api/[controller]")]
     public class ValuesController : ControllerBase
     {
 

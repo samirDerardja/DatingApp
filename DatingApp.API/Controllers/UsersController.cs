@@ -7,42 +7,49 @@ using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using DatingApp.API.Helpers;
 
 namespace DatingApp.API.Controllers
 {
- 
 
-    [ApiController]
+    // [ServiceFilter(typeof(LogUserActivity))]
+
     [Route("api/[controller]")]
+    [ApiController]
     public class UsersController: ControllerBase
     {
         private readonly IDatingRepository _repo;
          private readonly IMapper _mapper;
         public UsersController(IDatingRepository repo, IMapper mapper)
         {
-           _repo = repo;
+           _repo = repo; 
            _mapper = mapper;
         }
 
-      
+
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+      public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await  _repo.GetUsers();
+             var users = await _repo.GetUsers(userParams);
+
             var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
+            
             return Ok(usersToReturn);
         }
 
-   
-        [HttpGet("{id}"), Name = "GetUser" )]
+
+        [HttpGet("{id}", Name="GetUser")]
         public async Task<IActionResult> GetUser(int id)
         {
             var user = await _repo.GetUser(id);
             var userReturn = _mapper.Map<UserForDetailedDto>(user);
+
+            user.LastActive = DateTime.Now;
+        
+            await _repo.SaveAll();
             return Ok(userReturn);
         }
  
-  
         [HttpPut("{id}")] 
         public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
         {

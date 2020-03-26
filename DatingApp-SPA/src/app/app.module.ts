@@ -28,6 +28,9 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { CarouselModule, WavesModule } from 'angular-bootstrap-md';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TimeagoModule, TimeagoIntl, TimeagoClock } from 'ngx-timeago';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import {NgxPaginationModule} from 'ngx-pagination';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
@@ -51,14 +54,19 @@ export function tokenGetter() {
    ],
    imports: [
       BrowserModule,
+      NgxPaginationModule,
+      BsDatepickerModule.forRoot(),
+      PaginationModule.forRoot(),
+      TimeagoModule.forRoot({
+         intl: {provide: TimeagoIntl, useClass: MemberDetailComponent},
+         clock: {provide: TimeagoClock, useClass: MemberDetailComponent},
+       }),
       HttpClientModule,
       FormsModule,
       CarouselModule,
       BrowserAnimationsModule,
-      BsDatepickerModule.forRoot(),
       WavesModule,
       FileUploadModule,
-      OwlModule,
       ReactiveFormsModule,
       RouterModule.forRoot(routes),
       JwtModule.forRoot({
@@ -79,6 +87,7 @@ export function tokenGetter() {
       AuthService,
       AlertifyService,
       AuthGuard,
+      TimeagoIntl,
       PreventUnsavedChanges,
    ],
    bootstrap: [

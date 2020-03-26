@@ -6,7 +6,8 @@ import { User } from './_models/user';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+ 
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
     }
     if(user){
       this.authService.currentUser = user;
-      this.authService.changeMemberPhoto(user.photoUrl)
+      this.authService.changeMemberPhoto(user.photoUrl);
     }
   }
 }

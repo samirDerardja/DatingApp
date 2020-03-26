@@ -25,55 +25,15 @@
     <input type="text"  [ngClass]="{'is-invalid' : registerForm.get('username').errors && registerForm.get('username').touched}" 
     class="form-control is-invalid" 
     formControlName="username" placeholder="Nom d' utilisateur"   >
-    <div class="invalid-feedback">Veuillez entrer un nom d' utilisateur</div>
+    <div class="invalid-feedback">Veuillez entrer un nom d' utilisateur </div>
   </div>
 
   
   <div class="form-group">
     <input [ngClass]="{'is-invalid': registerForm.get('knownAs').errors && registerForm.get('knownAs').touched}" class="form-control"
-      placeholder="Known as" formControlName="knownAs">
-    <div class="invalid-feedback" *ngIf="registerForm.get('knownAs').touched && registerForm.get('knownAs').hasError('required')">Known as is required</div>
+      placeholder="pseudo" formControlName="knownAs">
+    <div class="invalid-feedback" *ngIf="registerForm.get('knownAs').touched && registerForm.get('knownAs').hasError('required')">pseudo obligatoire</div>
   </div>
-
-
-  <div class="form-group">
-    <div class="row">
-    <div class="col-xs-12 col-12 col-sm-3 col-md-4 col-lg-2 form-group">
-      <select
-        class="custom-select form-control "
-        [(ngModel)]="locale" (ngModelChange)="applyLocale(dp);"  [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let loc of locales" [value]="loc">{{ loc }}</option>
-      </select>
-    </div>
-    <div class="col-md-10">
-      <input [ngClass]="{'is-invalid': registerForm.get('dateOfBirth').errors && registerForm.get('dateOfBirth').touched}" class="form-control datepicker"
-      placeholder="Date de naissance" formControlName="dateOfBirth" type="text" bsDatepicker  #dp="bsDatepicker" [bsConfig]="bsConfig">
-    <div class="invalid-feedback" *ngIf="registerForm.get('dateOfBirth').touched && registerForm.get('dateOfBirth').hasError('required')">Date of Birth is required</div>
-    </div>
-    </div>
-  </div>
-
-  
-
-  
-  <div class="form-group">
-    <input [ngClass]="{'is-invalid': registerForm.get('city').errors && registerForm.get('city').touched}" class="form-control"
-      placeholder="Ville" formControlName="city">
-    <div class="invalid-feedback" *ngIf="registerForm.get('city').touched && registerForm.get('city').hasError('required')">Veuillez saisir la ville</div>
-  </div>
-
-  <div class="form-group">
-    <input [ngClass]="{'is-invalid': registerForm.get('country').errors && registerForm.get('country').touched}" class="form-control"
-      placeholder="Pays" formControlName="country">
-    <div class="invalid-feedback" *ngIf="registerForm.get('country').touched && registerForm.get('country').hasError('required')">Veuillez saisir un pays</div>
-  </div>
-
-  <!-- <div class="form-group">
-   <label for="favouriteValue">What is your favorite value</label>
-   <select class="form-control" id="favouriteValue">
-     <option *ngFor="let value of valuesFromHome" [value]="value">{{value.name}}</option>
-   </select>
-  </div> -->
 
   <div class="form-group">
     <input type="password"  [ngClass]="{'is-invalid' : registerForm.get('password').errors && registerForm.get('password').touched}" 
@@ -109,6 +69,46 @@
   *ngIf="registerForm.hasError('missmatch')
    && registerForm.get('confirmPassword').touched">Mot de passe non identique</div>
   </div>
+  <div class="form-group">
+    <div class="row">
+    <div class="col-xs-12 col-12 col-sm-3 col-md-4 col-lg-2 form-group">
+      <select
+        class="custom-select form-control "
+        [(ngModel)]="locale" (ngModelChange)="applyLocale(dp);"  [ngModelOptions]="{standalone: true}">
+        <option *ngFor="let loc of locales" [value]="loc">{{ loc }}</option>
+      </select>
+    </div>
+    <div class="col-md-10">
+      <input [ngClass]="{'is-invalid': registerForm.get('dateOfBirth').errors && registerForm.get('dateOfBirth').touched}" class="form-control datepicker"
+      placeholder="Date de naissance" formControlName="dateOfBirth" type="text" bsDatepicker  #dp="bsDatepicker" [bsConfig]="bsConfig">
+    <div class="invalid-feedback" *ngIf="registerForm.get('dateOfBirth').touched && registerForm.get('dateOfBirth').hasError('required')">Date de naissance obligatoire</div>
+    </div>
+    </div> 
+  </div>
+
+  
+
+  
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerForm.get('city').errors && registerForm.get('city').touched}" class="form-control"
+      placeholder="Ville" formControlName="city">
+    <div class="invalid-feedback" *ngIf="registerForm.get('city').touched && registerForm.get('city').hasError('required')">Veuillez saisir la ville</div>
+  </div>
+
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': registerForm.get('country').errors && registerForm.get('country').touched}" class="form-control"
+      placeholder="Pays" formControlName="country">
+    <div class="invalid-feedback" *ngIf="registerForm.get('country').touched && registerForm.get('country').hasError('required')">Veuillez saisir un pays</div>
+  </div>
+
+  <!-- <div class="form-group">
+   <label for="favouriteValue">What is your favorite value</label>
+   <select class="form-control" id="favouriteValue">
+     <option *ngFor="let value of valuesFromHome" [value]="value">{{value.name}}</option>
+   </select>
+  </div> -->
+
+  
 
 
   <div class="form-group text-center">

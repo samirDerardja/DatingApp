@@ -1,17 +1,10 @@
 using System.Net;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DatingApp.API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -49,16 +42,22 @@ namespace DatingApp.API
 
             services.AddTransient<Seed>();
      
+            
+           services.AddMvc();
+             services.AddCors();
+            services.AddDbContext<DataContext>( connect => connect.UseSqlite
+            (Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers().AddNewtonsoftJson();
+            
+              //L’inscription ajuste la durée de vie du service à la durée de vie d’une requête unique. 
+            services.AddScoped<IauthRepository, AuthRepository>();
+            services.AddScoped< IDatingRepository, DatingRepository>();
+             services.AddHttpContextAccessor();
+            //  services.AddScoped<LogUserActivity>();
 
             
-                  services.AddAuthentication( opt => {
-                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-
-            .AddJwtBearer(options => {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
+                  services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+                
                 options.TokenValidationParameters = new TokenValidationParameters 
                 {
                     ValidateIssuerSigningKey = true,
@@ -68,14 +67,6 @@ namespace DatingApp.API
                     
                 };
             });
-            //L’inscription ajuste la durée de vie du service à la durée de vie d’une requête unique. 
-            services.AddScoped<IauthRepository, AuthRepository>();
-            services.AddScoped< IDatingRepository, DatingRepository>();
-           
-            services.AddDbContext<DataContext>( connect => connect.UseSqlite
-            (Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers().AddNewtonsoftJson();
-           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,18 +90,23 @@ namespace DatingApp.API
                 }
             });
         });
-        //app.UseHsts();
+     
     }
-        
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            app.UseHttpsRedirection();
- 
+
+         app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().WithExposedHeaders("Pagination"));
+            //  app.UseHsts();
+            // app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication(); 
+        
+   //*qui est tu???
+             app.UseAuthentication(); 
+
+             // *ok et es t-ce que tu autorisé?!
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+              endpoints.MapDefaultControllerRoute().RequireAuthorization();
             });
         }
     }
