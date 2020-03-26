@@ -98,7 +98,9 @@ namespace DatingApp.API
             // app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-        
+             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+   
+
    //*qui est tu???
              app.UseAuthentication(); 
 
